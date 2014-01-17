@@ -1,0 +1,17 @@
+Name: Note Taker
+
+Features: Records voice of teacher and transcribes the voice-to-text using open-sourced(the voice-to-text) software already created.  Meant to be a helpful guide for students to compare their handwritten/typed notes to their teachers lecture.
+
+Equipment need for the app to function: Bluetooth microphone or keeping the phones close enough to the teacher for it to pick up the lecture.  And of course a smartphone (iphone/andriod)
+
+Why even have this? - to me I feel like every class I am in, the teacher talks so fast that I can't get down all of the notes (bullet points or in depth notes from the lecture) and even if I do, I am too busy worrying about what the teacher said 30 seconds prior to comprehend what they are talking about now. (maybe its just me.)
+
+Now with this being a recording it would probably have to be a school policy that students can record teachers voices (legal issues), but with the caveats I think that SLU wouldn't have a problem with recording the lectures.
+
+Caveats:
+- Students MUST BE in class to get voice recording and the transcribed text. ( either by being with-in the bluetooth mic's distance, or having phones on the desk.)
+- Copying is prohibited (Don't know how this is implemented yet) because we don't want to have it where one student goes to class and gets the notes for every other student in the class or for his personal gain(selling) which is probably another legal/SLU issue.
+- What keeps a student from typing the text into a word document and sending it to everyone? (ideas?)
+- Must be class protected ( either by password that a teacher generates or some kind of log in information. and again the student must be in class)
+- need teachers to try out (volunteers?)
+- and finally does this take away from note taking all together? The idea is that this will aid students in comparing their notes to the teachers lecture.
