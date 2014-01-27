@@ -9,6 +9,8 @@ Meeting Notes:
 -API 16-19
 -
 -Likely using Google API for voice
+-
+-Slideout side menu (eventually)
 
 ------------------------------------------------
 
