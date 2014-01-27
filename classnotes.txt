@@ -1,0 +1,25 @@
+Meeting Notes:
+
+-Android Support staring with v4.1 (minimum)
+-
+-Using 4.4 SDK
+-
+-Using Android Studio
+-
+-API 16-19
+-
+-Likely using Google API for voice
+
+------------------------------------------------
+
+Sprint Backlog (ends February 21st):
+
+-Set up studio and API versions ***Everyone***
+-
+-Something on mobile (that runs)
+-
+-Basic recording functionality
+-
+-Basic voice to text/transcription
+-
+-English Support
