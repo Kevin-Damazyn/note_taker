@@ -16,6 +16,8 @@ Meeting Notes:
 
 Sprint Backlog (ends February 21st):
 
+-get basic setup uploaded so everybody starts in the same workspace.
+-
 -Set up studio and API versions ***Everyone***
 -
 -Something on mobile (that runs)
