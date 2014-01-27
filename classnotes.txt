@@ -9,8 +9,6 @@ Meeting Notes:
 -API 16-19
 -
 -Likely using Google API for voice
--
--Slideout side menu (eventually)
 
 ------------------------------------------------
 
@@ -18,7 +16,7 @@ Sprint Backlog (ends February 21st):
 
 -Set up studio and API versions ***Everyone***
 -
--Something on mobile (that runs)
+-Something with a button, recording, etc. (independent)
 -
 -Basic recording functionality
 -
