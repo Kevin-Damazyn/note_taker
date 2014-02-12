@@ -1,22 +1,30 @@
 package com.notetaker;
 
-import android.app.Activity;
-;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import static android.view.View.OnClickListener;
+
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -30,6 +38,11 @@ public class MainActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private final String TAG = "Record Voice";
+    static final int check = 1111;
+    TextView tv;
+    private SpeechRecognizer mSpeechRecognizer;
+    private Intent mSpeechRecognizerIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +53,109 @@ public class MainActivity extends Activity
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
+        setupRecording();
+
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    private void setupRecording() {
+        // get a reference to the button
+        Button record_btn = (Button) findViewById(R.id.btn_record);
+        tv = (TextView)findViewById(R.id.otpt_text_txtview);
+
+        record_btn.setOnClickListener(recordBtnListener);
+
+        boolean available = SpeechRecognizer.isRecognitionAvailable(this);
+        Log.d("Speech", "available = " + available);
+        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        mSpeechRecognizer.setRecognitionListener(new SpeechListener());
+
+
+    }
+
+    OnClickListener recordBtnListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.btn_record){
+                Log.d("speech", "button active");
+                mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "voice.recognition.test");
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+                mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+            }
+        }
+    };
+
+    private class SpeechListener implements RecognitionListener {
+
+        @Override
+        public void onReadyForSpeech(Bundle bundle) {
+            Log.d("Speech", "onReadyForSpeech");
+        }
+
+        @Override
+        public void onBeginningOfSpeech() {
+            Log.d("Speech", "onBeginningOfSpeech");
+        }
+
+        @Override
+        public void onRmsChanged(float v) {
+            Log.d("Speech", "onRmsChanged");
+        }
+
+        @Override
+        public void onBufferReceived(byte[] bytes) {
+            Log.d("Speech", "onBufferReceived");
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+            Log.d("Speech", "onEndOfSpeech");
+        }
+
+        @Override
+        public void onError(int i) {
+            Log.d("Speech", "onError");
+            tv.setText("error " + i);
+        }
+
+        @Override
+        public void onResults(Bundle bundle) {
+//            String str = "";
+//            Log.d("Speech", "onResults");
+//            ArrayList data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+//            if (data != null) {
+//                for (int i = 0; i < data.size(); i++) {
+//                    Log.d("Speech", "result " + data.get(i));
+//                    str += data.get(i);
+//                }
+//                tv.setText("results: " + str);
+//            }
+        }
+
+        @Override
+        public void onPartialResults(Bundle bundle) {
+//            String str = "";
+            Log.d("Speech", "onPartialResults");
+            ArrayList data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            if (data != null) {
+//                for (int i = 0; i < data.size(); i++) {
+//                    Log.d("Speech", "result " + data.get(i));
+//                    str += data.get(i);
+//                }
+                tv.setText("results: " + data.get(0));
+            }
+        }
+
+        @Override
+        public void onEvent(int i, Bundle bundle) {
+            Log.d("Speech", "onEvent");
+        }
     }
 
     @Override
@@ -63,17 +175,16 @@ public class MainActivity extends Activity
             case 2:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
         }
     }
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        if (actionBar != null) {
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(mTitle);
+        }
     }
 
 
@@ -131,8 +242,11 @@ public class MainActivity extends Activity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+            TextView textView;
+            if (rootView != null) {
+                textView = (TextView) rootView.findViewById(R.id.section_label);
+                textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+            }
             return rootView;
         }
 
