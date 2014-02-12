@@ -4,9 +4,12 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.view.View.OnClickListener;
 
 
 public class MainActivity extends Activity
@@ -36,7 +41,8 @@ public class MainActivity extends Activity
     private final String TAG = "Record Voice";
     static final int check = 1111;
     TextView tv;
-
+    private SpeechRecognizer mSpeechRecognizer;
+    private Intent mSpeechRecognizerIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,33 +66,96 @@ public class MainActivity extends Activity
         Button record_btn = (Button) findViewById(R.id.btn_record);
         tv = (TextView)findViewById(R.id.otpt_text_txtview);
 
-        //set the click listener to run code
-        record_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "Start recording.");
-                Toast.makeText(MainActivity.this,
-                        "Start Recording",
-                        Toast.LENGTH_SHORT).show();
+        record_btn.setOnClickListener(recordBtnListener);
 
-                Intent recordAudio = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                recordAudio.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                startActivityForResult(recordAudio, check);
-            }
-        });
+        boolean available = SpeechRecognizer.isRecognitionAvailable(this);
+        Log.d("Speech", "available = " + available);
+        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        mSpeechRecognizer.setRecognitionListener(new SpeechListener());
+
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == check && resultCode == RESULT_OK){
-            ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (results != null) {
-                tv.setText(results.get(0));
+    OnClickListener recordBtnListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.btn_record){
+                Log.d("speech", "button active");
+                mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "voice.recognition.test");
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+                mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
             }
+        }
+    };
 
+    private class SpeechListener implements RecognitionListener {
+
+        @Override
+        public void onReadyForSpeech(Bundle bundle) {
+            Log.d("Speech", "onReadyForSpeech");
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
+        @Override
+        public void onBeginningOfSpeech() {
+            Log.d("Speech", "onBeginningOfSpeech");
+        }
+
+        @Override
+        public void onRmsChanged(float v) {
+            Log.d("Speech", "onRmsChanged");
+        }
+
+        @Override
+        public void onBufferReceived(byte[] bytes) {
+            Log.d("Speech", "onBufferReceived");
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+            Log.d("Speech", "onEndOfSpeech");
+        }
+
+        @Override
+        public void onError(int i) {
+            Log.d("Speech", "onError");
+            tv.setText("error " + i);
+        }
+
+        @Override
+        public void onResults(Bundle bundle) {
+//            String str = "";
+//            Log.d("Speech", "onResults");
+//            ArrayList data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+//            if (data != null) {
+//                for (int i = 0; i < data.size(); i++) {
+//                    Log.d("Speech", "result " + data.get(i));
+//                    str += data.get(i);
+//                }
+//                tv.setText("results: " + str);
+//            }
+        }
+
+        @Override
+        public void onPartialResults(Bundle bundle) {
+//            String str = "";
+            Log.d("Speech", "onPartialResults");
+            ArrayList data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            if (data != null) {
+//                for (int i = 0; i < data.size(); i++) {
+//                    Log.d("Speech", "result " + data.get(i));
+//                    str += data.get(i);
+//                }
+                tv.setText("results: " + data.get(0));
+            }
+        }
+
+        @Override
+        public void onEvent(int i, Bundle bundle) {
+            Log.d("Speech", "onEvent");
+        }
     }
 
     @Override
