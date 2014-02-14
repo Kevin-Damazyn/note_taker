@@ -18,9 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static android.view.View.OnClickListener;
@@ -28,9 +30,37 @@ import static android.view.View.OnClickListener;
 
 public class MainActivity extends Activity {
 
+    public static final int SETTINGS_REQUEST_CODE = 2301;
+
+    private TextView username;
+
     public void onCreate(Bundle SavedInstanceState) {
         super.onCreate(SavedInstanceState);
         setContentView(R.layout.activity_main);
+
+        username = (TextView) findViewById(R.id.title_name);
+
+    }
+
+    public void onStart() {
+        super.onStart();
+
+        Log.d("gui", "Start is called in main.");
+
+        EditText usernamein = (EditText) findViewById(R.id.user_name_field);
+
+        if (usernamein != null) {
+            Log.d("gui", "usernamein exists");
+            if (usernamein.getText() != null) {
+                Log.d("gui", "name exists");
+                username.setText(usernamein.getText());
+            }
+        }
+    }
+
+    public void toSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent,SETTINGS_REQUEST_CODE);
     }
 
 }

@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="New Recording"
         android:id="@+id/new_rec"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="112dp"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
@@ -52,5 +52,16 @@
         android:layout_marginTop="49dp"
         android:singleLine="false"
         android:layout_below="@+id/browse_rec"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="toSettings" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/title_name"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="57dp" />
 </RelativeLayout>
