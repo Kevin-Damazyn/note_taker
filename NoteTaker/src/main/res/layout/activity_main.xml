@@ -44,7 +44,7 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2" />
 
-    <Button
+    <!-- <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
@@ -53,7 +53,7 @@
         android:singleLine="false"
         android:layout_below="@+id/browse_rec"
         android:layout_centerHorizontal="true"
-        android:onClick="toSettings" />
+        android:onClick="toSettings" /> -->
 
     <TextView
         android:layout_width="wrap_content"

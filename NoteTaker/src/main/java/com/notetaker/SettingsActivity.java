@@ -11,7 +11,9 @@ public class SettingsActivity extends Activity {
 
     public void onCreate(Bundle SavedInstanceState) {
         super.onCreate(SavedInstanceState);
-        setContentView(R.layout.activity_settings);
+
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new CustomPreferences()).commit();
+
     }
 
     public void onStart() {
@@ -22,7 +24,6 @@ public class SettingsActivity extends Activity {
     public void onPause() {
         Log.d("gui", "settings paused");
         super.onPause();
-        //TODO Add result remove.
     }
 
     public void onStop() {

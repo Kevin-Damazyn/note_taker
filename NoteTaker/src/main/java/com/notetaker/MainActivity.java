@@ -6,7 +6,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -61,6 +63,44 @@ public class MainActivity extends Activity {
     public void toSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivityForResult(intent,SETTINGS_REQUEST_CODE);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("gui","option menu created");
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("gui","option item selected");
+        if (item.getItemId() == R.id.action_settings) {
+            Log.d("gui","setting selected");
+
+            Intent i = new Intent(this, SettingsActivity.class);
+
+            startActivityForResult(i, 111);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+
+        updatePrefs();
+    }
+
+    private void updatePrefs() {
+
+        SharedPreferences mySharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (mySharedPrefs.getString("username","None") != "None")
+            username.setText(mySharedPrefs.getString("username","None"));
+        else
+            username.setText("Groaglfbff");
+
     }
 
 }
