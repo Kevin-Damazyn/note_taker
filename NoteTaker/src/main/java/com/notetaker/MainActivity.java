@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.recording.RecordActivity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -101,6 +103,11 @@ public class MainActivity extends Activity {
         if (mySharedPrefs.getString("username","None") != "None")
             username.setText("Welcome back " + mySharedPrefs.getString("username","None"));
 
+    }
+
+    public void newRecord(View view) {
+        Intent i = new Intent(this, RecordActivity.class);
+        startActivity(i);
     }
 
 }

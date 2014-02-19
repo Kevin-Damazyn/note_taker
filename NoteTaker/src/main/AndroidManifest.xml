@@ -28,6 +28,12 @@
         <activity android:name="com.notetaker.SettingsActivity">
             <!-- -->
         </activity>
+
+        <activity android:name="com.recording.RecordActivity"
+            android:label="NoteTaker">
+
+        </activity>
+
     </application>
 
 </manifest>

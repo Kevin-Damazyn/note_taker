@@ -30,17 +30,17 @@
         android:layout_height="wrap_content"
         android:text="New Recording"
         android:id="@+id/new_rec"
-        android:layout_marginTop="112dp"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/title_name"
+        android:layout_centerHorizontal="true"
+        android:onClick="newRecord" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Browse Recordings"
         android:id="@+id/browse_rec"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/new_rec"
+        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2" />
 
