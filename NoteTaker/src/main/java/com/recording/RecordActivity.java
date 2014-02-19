@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.notetaker.R;
 
@@ -13,6 +14,8 @@ import com.notetaker.R;
 public class RecordActivity extends Activity {
 
     private Button recordButton;
+    private TextView recordedText;
+    private String filename;
 
     public void onCreate(Bundle SavedInstanceData) {
         super.onCreate(SavedInstanceData);
@@ -20,6 +23,8 @@ public class RecordActivity extends Activity {
 
         recordButton = (Button) findViewById(R.id.record_button);
         recordButton.setText("Start new recording");
+
+        recordedText = (TextView) findViewById(R.id.record_text);
     }
 
     public void startRecord(View view) {
@@ -27,6 +32,11 @@ public class RecordActivity extends Activity {
         FileNameDialog fnd = new FileNameDialog();
         fnd.show(getFragmentManager(), "filename");
 
+    }
+
+    public void setFilename(String name) {
+        filename = name;
+        recordedText.setText(filename);
     }
 
 }

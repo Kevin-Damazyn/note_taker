@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.widget.EditText;
 
 import com.notetaker.R;
 
@@ -15,16 +16,27 @@ import com.notetaker.R;
  */
 public class FileNameDialog extends DialogFragment {
 
+    private RecordActivity parent;
+
     public Dialog onCreateDialog(Bundle SavedInstanceState) {
+
+        parent = (RecordActivity) getActivity();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater lf = getActivity().getLayoutInflater();
-        builder.setView(lf.inflate(R.layout.dialog_filename, null)); 
+        builder.setView(lf.inflate(R.layout.dialog_filename, null));
+
+        Dialog dview = this.getDialog();
+        final EditText et = (EditText) dview.findViewById(R.id.filename_entry);
+
+        //TODO Needs to be tested and debugged; additionally, cancelling needs to be fleshed out.
         builder.setTitle("Select File")
 
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        String temp = et.getText().toString();
+                        parent.setFilename(temp);
                         dialogInterface.dismiss();
                     }
                 })

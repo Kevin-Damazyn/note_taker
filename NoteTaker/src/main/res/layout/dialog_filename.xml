@@ -14,6 +14,7 @@
         android:gravity="center" />
 
     <EditText
+        android:id="@+id/filename_entry"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:contentDescription="Enter file name"/>

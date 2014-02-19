@@ -17,6 +17,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.notetaker.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="sensorPortrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,12 +27,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.notetaker.SettingsActivity">
+        <activity
+            android:name="com.notetaker.SettingsActivity"
+            android:conifgChanges="orientation"
+            android:screenOrientation="sensorPortrait" >
             <!-- -->
         </activity>
 
-        <activity android:name="com.recording.RecordActivity"
-            android:label="NoteTaker">
+        <activity
+            android:name="com.recording.RecordActivity"
+            android:label="NoteTaker"
+            android:configChanges="orientation"
+            android:screenOrientation="sensorPortrait" >
 
         </activity>
 
