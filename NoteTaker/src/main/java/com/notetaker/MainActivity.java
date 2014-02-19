@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
 
         username = (TextView) findViewById(R.id.title_name);
 
+        updatePrefs();
+
     }
 
     public void onStart() {
@@ -97,9 +99,7 @@ public class MainActivity extends Activity {
         SharedPreferences mySharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (mySharedPrefs.getString("username","None") != "None")
-            username.setText(mySharedPrefs.getString("username","None"));
-        else
-            username.setText("Groaglfbff");
+            username.setText("Welcome back " + mySharedPrefs.getString("username","None"));
 
     }
 

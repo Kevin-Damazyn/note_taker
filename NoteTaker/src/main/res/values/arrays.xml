@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="format_types">
+        <item name="0">AAC_ADTS</item>
+        <item name="1">MPEG_4</item>
+        <item name="2">THREE_GPP</item>
+    </string-array>
+
+    <string-array name="format_types_values">
+        <item name="0">0</item>
+        <item name="1">1</item>
+        <item name="2">2</item>
+    </string-array>
+    
+</resources>

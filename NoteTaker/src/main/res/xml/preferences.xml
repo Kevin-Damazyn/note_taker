@@ -5,6 +5,17 @@
     <EditTextPreference
         android:title="Enter Name"
         android:key="username"
-        android:summary="Please provide a name for your files to be tagged with"></EditTextPreference>
+        android:summary="Choose a name for your files to be tagged with"
+        android:dialogTitle="Enter Name"></EditTextPreference>
+
+
+
+    <ListPreference
+        android:title="Choose Recording Format"
+        android:key="record_format"
+        android:summary="Choose the format you want the audio recordings to be saved in"
+        android:entries="@array/format_types"
+        android:entryValues="@array/format_types_values"
+        android:dialogTitle="Choose Recording Format"></ListPreference>
 
 </PreferenceScreen>
