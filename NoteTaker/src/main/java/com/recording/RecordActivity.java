@@ -1,7 +1,9 @@
 package com.recording;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +18,22 @@ public class RecordActivity extends Activity {
     private Button recordButton;
     private TextView recordedText;
     private String filename;
+
+    private static String stringParser(String input) {
+        String output = "";
+        for (char c : output.toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) { //TODO May not work yet
+                output += "_";
+            }
+            else if (Character.isUpperCase(c)) {
+                output += Character.toLowerCase(c);
+            }
+            else {
+                output += c;
+            }
+        }
+        return output;
+    }
 
     public void onCreate(Bundle SavedInstanceData) {
         super.onCreate(SavedInstanceData);
@@ -35,8 +53,11 @@ public class RecordActivity extends Activity {
     }
 
     public void setFilename(String name) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         filename = name;
-        recordedText.setText(filename);
+        recordedText.setText(stringParser(filename) + "_" + stringParser(prefs.getString("username","None")));
     }
 
 }

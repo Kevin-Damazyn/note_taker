@@ -29,7 +29,6 @@
 
         <activity
             android:name="com.notetaker.SettingsActivity"
-            android:conifgChanges="orientation"
             android:screenOrientation="sensorPortrait" >
             <!-- -->
         </activity>
@@ -37,7 +36,6 @@
         <activity
             android:name="com.recording.RecordActivity"
             android:label="NoteTaker"
-            android:configChanges="orientation"
             android:screenOrientation="sensorPortrait" >
 
         </activity>
