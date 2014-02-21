@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.recording.RecordActivity;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -45,7 +46,6 @@ public class MainActivity extends Activity {
         username = (TextView) findViewById(R.id.title_name);
 
         updatePrefs();
-
     }
 
     public void onStart() {

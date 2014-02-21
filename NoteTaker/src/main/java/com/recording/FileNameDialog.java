@@ -38,6 +38,7 @@ public class FileNameDialog extends DialogFragment {
 
                         String temp = et.getText().toString();
                         parent.setFilename(temp);
+                        parent.startRecording();
                         dialogInterface.dismiss();
                     }
                 })
