@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:text="Enter File Name"
+        android:textSize="24dp"
+        android:textColor="#FFFFFF"
+        android:background="#353535"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/filename_entry"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:contentDescription="Enter file name"/>
+
+</LinearLayout>

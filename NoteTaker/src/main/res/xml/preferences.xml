@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:title="Enter Name"
+        android:key="username"
+        android:summary="Choose a name for your files to be tagged with"
+        android:dialogTitle="Enter Name"></EditTextPreference>
+
+
+
+    <ListPreference
+        android:title="Choose Recording Format"
+        android:key="record_format"
+        android:summary="Choose the format you want the audio recordings to be saved in"
+        android:entries="@array/format_types"
+        android:entryValues="@array/format_types_values"
+        android:dialogTitle="Choose Recording Format"></ListPreference>
+
+</PreferenceScreen>
