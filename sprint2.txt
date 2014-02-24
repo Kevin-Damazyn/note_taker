@@ -1,0 +1,40 @@
+Sprint 2
+-----------------------------------
+Goals:
+	-GUI Redesign (Ryan)
+		-Less clicks to fucntionality
+		-Fragment Drawer
+		-Color Themes/something similar
+
+	-File Browsing/Management (Chris)
+		-List files
+		-Delete files
+			-Seperate deletion types
+		-Directories
+		-Moving files
+		-Renaming files
+		-Show file size
+
+	-Audio Playback (Kevin)
+		-Media player style interface
+		-Play
+		-Pause
+		-Seek
+		-Volume
+		-Timestamp
+
+	-Speech to Text (Dylan)
+		-Listen until paused/stopped
+		-Allow pausing
+		-Battey life issues
+		-Keep alive if screen is off/out of app (pop-up/notification bar)
+		-Saves text
+
+	-Settings (Zach)
+		-Language choice
+		-File type
+		-Username (maybe pull from phone)
+		-File tag
+		-Color scheme (maybe?)
+		-Audio file lifespan
+		-Set time to keep audio
