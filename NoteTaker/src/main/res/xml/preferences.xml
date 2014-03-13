@@ -3,13 +3,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <CheckBoxPreference>   <!-- Settings that will use a check-mark, as in, you either turn them on our off-->
+    <!--<CheckBoxPreference>-->   <!-- Settings that will use a check-mark, as in, you either turn them on our off-->
         <!-- We do not have anything listed that appears to need this -->
 
-        </CheckBoxPreference>
+        <!--</CheckBoxPreference>-->
 
 
     <EditTextPreference>    <!-- Settings that are changed by user input. Value is saved as a string -->
+        <!-- User Name -->
         android:title="Enter Name"
         android:key="username"
         android:summary="Choose a name for your files to be tagged with"
@@ -19,15 +20,35 @@
         <!-- </EditTextPreference>-->
 
 
-    <ListPreference>    <!-- Settings that are determined by what is selected out of a list of options -->
-        android:title="Choose Recording Format"
+    <ListPreference>        <!-- Recording Format -->    <!-- Settings that are determined by what is selected out of a list of options -->
+
+        android:title="Choose Preferred Recording Format"
         android:key="record_format"
         android:summary="Choose the format you want the audio recordings to be saved in"
         android:entries="@array/format_types"
         android:entryValues="@array/format_types_values"
         android:dialogTitle="Choose Recording Format"
+           </ListPreference>
 
+    <ListPreference>        <!-- Language Choice, don't know if all of these are needed for every setting. -->
+
+        android:title="Choose Preferred Translation Language"
+        android:key="lang_choice"
+        android:summary="Choose language that is being interpreted"
+        android:entries="@array/lang_choices"
+        android:entryValues="@array/lang_choices_values"
+        android:dialogTitle="Choose Language"
         </ListPreference>
+
+
+    <CheckBoxPreference> <!-- Color Scheme -->
+
+        android:title="Dark Theme"  <!-- Or whatever the NOT default theme is -->
+        android:key="AltTheme"
+        android:summary="If checked, theme will appear darker"
+
+        </CheckBoxPreference>
+
 
 
 
