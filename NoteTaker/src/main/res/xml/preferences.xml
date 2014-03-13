@@ -2,20 +2,33 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
+
+    <CheckBoxPreference>   <!-- Settings that will use a check-mark, as in, you either turn them on our off-->
+        <!-- We do not have anything listed that appears to need this -->
+
+        </CheckBoxPreference>
+
+
+    <EditTextPreference>    <!-- Settings that are changed by user input. Value is saved as a string -->
         android:title="Enter Name"
         android:key="username"
         android:summary="Choose a name for your files to be tagged with"
-        android:dialogTitle="Enter Name"></EditTextPreference>
+        android:dialogTitle="Enter Name"
+
+        </EditTextPreference>
+        <!-- </EditTextPreference>-->
 
 
-
-    <ListPreference
+    <ListPreference>    <!-- Settings that are determined by what is selected out of a list of options -->
         android:title="Choose Recording Format"
         android:key="record_format"
         android:summary="Choose the format you want the audio recordings to be saved in"
         android:entries="@array/format_types"
         android:entryValues="@array/format_types_values"
-        android:dialogTitle="Choose Recording Format"></ListPreference>
+        android:dialogTitle="Choose Recording Format"
 
-</PreferenceScreen>
+        </ListPreference>
+
+
+
+    </PreferenceScreen>
