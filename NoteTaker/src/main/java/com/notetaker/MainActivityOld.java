@@ -1,4 +1,4 @@
-package com.notetaker;
+/* package com.notetaker;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -93,3 +93,4 @@ public class MainActivityOld extends Activity {
     }
 
 }
+*/
