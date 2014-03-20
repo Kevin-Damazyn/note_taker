@@ -2,8 +2,11 @@ package com.recording;
 
 import android.app.Activity;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -28,8 +31,20 @@ public class STTActivity extends Activity {
     private boolean recorder_alive = false;
     private SpeechRecognizer recognizer;
     private Intent speech_intent;
+    private Intent monitor_intent;
+    private RecognizerReceiver receiver;
 
     private TextView output;
+
+    public class RecognizerReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() == "restartRecognizer") {
+                Log.d("stt", "Restarting recognizer...");
+                recognizer.startListening(speech_intent);
+            }
+        }
+    }
 
     public void onCreate(Bundle SavedInstanceState) {
         super.onCreate(SavedInstanceState);
@@ -45,6 +60,13 @@ public class STTActivity extends Activity {
         speech_intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
 
         //TODO Create monitor
+        monitor_intent = new Intent(this, STTService.class);
+        startService(monitor_intent);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("restartRecognizer");
+        receiver = new RecognizerReceiver();
+        registerReceiver(receiver, filter);
 
     }
 
@@ -52,6 +74,10 @@ public class STTActivity extends Activity {
         Button b = (Button) view;
         if (!recording) {
             b.setText("Stop Recording");
+
+            Intent i = new Intent();
+            i.setAction("recordToggle");
+            sendBroadcast(i);
 
             recognizer.startListening(speech_intent);
 
@@ -105,6 +131,10 @@ public class STTActivity extends Activity {
 
                 output.setText(output.getText() + " " + out.get(0));
             }
+
+            Intent i = new Intent();
+            i.setAction("resultReceived");
+            sendBroadcast(i);
         }
 
         @Override
@@ -121,5 +151,6 @@ public class STTActivity extends Activity {
     public void onStop() {
         super.onStop();
         //TODO Stop service
+        stopService(monitor_intent);
     }
 }
