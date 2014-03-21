@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class STTActivity extends Activity {
     private Intent speech_intent;
     private Intent monitor_intent;
     private RecognizerReceiver receiver;
+    private String partial = "";
 
     private TextView output;
 
@@ -120,7 +122,14 @@ public class STTActivity extends Activity {
 
         @Override
         public void onError(int i) {
+            Log.e("stt", "error in recognizer" + i);
+            output.setText(output.getText() + " " + Html.fromHtml(partial));
 
+            if (recording) {
+                Intent it = new Intent();
+                it.setAction("resultReceived");
+                sendBroadcast(it);
+            }
         }
 
         @Override
@@ -130,16 +139,22 @@ public class STTActivity extends Activity {
                 ArrayList<String> out = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
                 output.setText(output.getText() + " " + out.get(0));
-            }
 
-            Intent i = new Intent();
-            i.setAction("resultReceived");
-            sendBroadcast(i);
+                if (recording) {
+                    Intent it = new Intent();
+                    it.setAction("resultReceived");
+                    sendBroadcast(it);
+                }
+            }
         }
 
         @Override
         public void onPartialResults(Bundle bundle) {
+            if (bundle != null) {
+                ArrayList<String> out = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
+                partial= "<font color='red'>" + out + "</font>";
+            }
         }
 
         @Override
