@@ -1,0 +1,22 @@
+Enter file contents here<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Notetaker</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="items">
+        <item>Instruction</item>
+        <item>Start Recording</item>
+        <item>Setting</item>
+        <item>Item 4</item>
+        <item>Item 5</item>
+        <item>Item 6</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_activity_activity2">activity2</string>
+    <string name="title_activity_activity3">activity3</string>
+
+</resources>
