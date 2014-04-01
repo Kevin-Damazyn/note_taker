@@ -20,7 +20,7 @@
         <!-- </EditTextPreference>-->
 
 
-    <ListPreference>        <!-- Recording Format -->    <!-- Settings that are determined by what is selected out of a list of options -->
+    <ListPreference>        <!-- Recording Format (file type)-->    <!-- Settings that are determined by what is selected out of a list of options -->
 
         android:title="Choose Preferred Recording Format"
         android:key="record_format"
@@ -50,6 +50,24 @@
         </CheckBoxPreference>
 
 
+    <EditTextPreference>
+
+        android:title="File Tag"
+        android:key="fileTag"
+        android:summary="User can append a tag of their choice to a file"
+        <!-- Not finished -->
+
+        </EditTextPreference>
+
+    <ListPreference>
+        <!-- This should probably include "set time to keep audio -->
+        android:title="Audio File Lifespan"
+        android:key="FileLifeSpan"
+        android:summary="Determine how long an audio file will be saved. Deletes file after this time has passed"
+        android:dialogTitle="Choose Lifespan"
+
+
+        </ListPreference>
 
 
     </PreferenceScreen>
