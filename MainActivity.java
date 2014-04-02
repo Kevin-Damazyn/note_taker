@@ -1,3 +1,4 @@
+
 package com.example.notetaker;
 
 import android.app.Activity;
@@ -51,15 +52,20 @@ public class MainActivity extends Activity {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             switch (position) {
-                case 0:
-                    Intent myIntent = new Intent(MainActivity.this, activity2.class);
+                case 0: //Main Class
+                    finish();
+                    Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
                     startActivity(myIntent);
-                    //drawerLayout.closeDrawer(drawerListView);
                     break;
-                case 1:
-                    Toast.makeText(MainActivity.this, ((TextView)view).getText(), Toast.LENGTH_LONG).show();
+                case 1: //Instruction Button
+                    //drawerLayout.closeDrawer(drawerListView);
+                    Intent myIntent2 = new Intent(MainActivity.this, InstructionActivity.class);
+                    startActivity(myIntent2);
                     break;
                 case 2:
+                    Toast.makeText(MainActivity.this, ((TextView)view).getText(), Toast.LENGTH_LONG).show();
+                    break;
+                case 3:
                     Toast.makeText(MainActivity.this, ((TextView)view).getText(), Toast.LENGTH_LONG).show();
                     break;
             }
