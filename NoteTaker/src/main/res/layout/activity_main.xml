@@ -42,7 +42,8 @@
         android:id="@+id/browse_rec"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        android:onClick="browseRecordings"/>
 
     <!-- <Button
         android:layout_width="wrap_content"

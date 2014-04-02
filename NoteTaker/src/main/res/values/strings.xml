@@ -10,5 +10,6 @@
     <string name="action_settings">Settings</string>
     <string name="record_btn_txt">Start Recording</string>
     <string name="txt_output">Strings go here!</string>
-
+    <string name="hello">Hello World, AndroidBuildingMusicPlayerActivity!</string>
+    <string name="music_player_name">AndroidBuildingMusicPlayer</string>
 </resources>
