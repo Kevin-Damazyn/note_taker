@@ -2,13 +2,6 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <!--<CheckBoxPreference>-->   <!-- Settings that will use a check-mark, as in, you either turn them on our off-->
-        <!-- We do not have anything listed that appears to need this -->
-
-        <!--</CheckBoxPreference>-->
-
-
     <EditTextPreference>    <!-- Settings that are changed by user input. Value is saved as a string -->
         <!-- User Name -->
         android:title="Enter Name"
@@ -17,7 +10,6 @@
         android:dialogTitle="Enter Name"
 
         </EditTextPreference>
-        <!-- </EditTextPreference>-->
 
 
     <ListPreference>        <!-- Recording Format (file type)-->    <!-- Settings that are determined by what is selected out of a list of options -->
