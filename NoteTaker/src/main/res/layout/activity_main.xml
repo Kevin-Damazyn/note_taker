@@ -33,7 +33,7 @@
         android:layout_marginTop="44dp"
         android:layout_below="@+id/title_name"
         android:layout_centerHorizontal="true"
-        android:onClick="newRecord" />
+        android:onClick="gotoRecord" />
 
     <Button
         android:layout_width="wrap_content"

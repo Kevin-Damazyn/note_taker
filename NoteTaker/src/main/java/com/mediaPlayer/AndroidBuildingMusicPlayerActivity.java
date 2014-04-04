@@ -86,7 +86,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
        File[] files = getFilesDir().listFiles(extensionFilter);
 
         if (files != null) {
-            textFromFile.setText(files[0].toString());
+            textFromFile.setText(files[0].getName());
         }
 
 
