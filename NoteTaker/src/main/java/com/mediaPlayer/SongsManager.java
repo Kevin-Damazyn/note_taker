@@ -25,7 +25,7 @@ public class SongsManager {
     public ArrayList<HashMap<String, String>> getPlayList(){
         File home = new File("storage/extSdCard/Music/The 1975/The 1975");
 
-        //Todo get this working with recorded files
+
         FilenameFilter extensionFilter = new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {

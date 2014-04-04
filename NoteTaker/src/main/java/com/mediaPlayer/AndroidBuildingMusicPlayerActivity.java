@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.notetaker.R;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +76,20 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
         songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
         textFromFile = (TextView) findViewById(R.id.text_from_recording);
 
+        FilenameFilter extensionFilter = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return (name.endsWith(".txt") || name.endsWith(".TXT"));
+            }
+        };
+
+       File[] files = getFilesDir().listFiles(extensionFilter);
+
+        if (files != null) {
+            textFromFile.setText(files[0].toString());
+        }
+
+
         //mediaplayer
         mp = new MediaPlayer();
         songManager = new SongsManager();
@@ -91,7 +107,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
         }
 
         //By default play the first song
-        playSong(0);
+      //  playSong(0);
 
         //play button click event
         btnPlay.setOnClickListener(new View.OnClickListener() {
