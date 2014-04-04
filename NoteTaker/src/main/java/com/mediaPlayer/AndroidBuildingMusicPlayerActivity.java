@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -13,9 +14,14 @@ import android.widget.Toast;
 
 import com.notetaker.R;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -86,7 +92,34 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
        File[] files = getFilesDir().listFiles(extensionFilter);
 
         if (files != null) {
-            textFromFile.setText(files[0].toString());
+            Log.d("stt", "found some files");
+            try
+            {
+                InputStream instream = openFileInput(files[0].getName());
+                if (instream != null)
+                {
+                    InputStreamReader inputreader = new InputStreamReader(instream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+                    String line, line1 = "";
+
+                    try
+                    {
+                        while ((line = buffreader.readLine()) != null)
+                            line1+=line;
+                        Log.d("stt", "line is as follows: ");
+                        Log.d("stt", line1);
+                        textFromFile.setText(line1);
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                String error="";
+                error=e.getMessage();
+            }
         }
 
 
