@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.filebrowser.FileChooser;
+import com.filebrowser.FileExplorerActivity;
 import com.mediaPlayer.AndroidBuildingMusicPlayerActivity;
 import com.recording.RecordActivity;
 import com.recording.STTActivity;
@@ -36,7 +38,7 @@ public class MainActivity extends Activity {
     }
 
     public void browseRecordings(View view) {
-        Intent i = new Intent(this, AndroidBuildingMusicPlayerActivity.class);
+        Intent i = new Intent(this, FileChooser.class);
         startActivity(i);
     }
 
