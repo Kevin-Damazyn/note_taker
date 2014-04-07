@@ -91,11 +91,14 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
 
        File[] files = getFilesDir().listFiles(extensionFilter);
 
+        Intent intent = getIntent();
+
         if (files != null) {
             Log.d("stt", "found some files");
             try
             {
-                InputStream instream = openFileInput(files[0].getName());
+                String name = intent.getStringExtra("GetFileName");
+                InputStream instream = openFileInput(name);
                 if (instream != null)
                 {
                     InputStreamReader inputreader = new InputStreamReader(instream);
