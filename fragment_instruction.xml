@@ -1,0 +1,41 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent">
+
+    <!-- The main content view-->
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8ab8ff" >
+
+        <ImageView
+            android:layout_width="157dp"
+            android:layout_height="157dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center"
+            android:background="@drawable/abc_ic_voice_search" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:text='"This will be where all of the instructions for this notetaker application will go."'
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity = "start"
+        android:choiceMode="singleChoice"
+        android:divider = "#666"
+        android:dividerHeight="1dp"
+        android:background="#333"
+        android:paddingLeft = "15sp"
+        android:paddingRight="15sp"
+        />
+
+</android.support.v4.widget.DrawerLayout>

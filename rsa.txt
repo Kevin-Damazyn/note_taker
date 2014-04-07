@@ -1,8 +1,0 @@
-To prevent file sharing outside of class, we can use RSA encryption to make the files as difficult to share as possible.
-RSA is a fairly simple idea.
-
-We have a hidden key and a public key. With the public key, we can encrypt our files all the same. 
-However, the only way to decyrpt these files is with the hidden key. 
-The best way to manage this would be to have randomly generated hidden keys that must be requested by the student. 
-This is not a guaranteed system by any stretch, but it would at least add a level of complexity on top of the 
-attempted file sharing.
