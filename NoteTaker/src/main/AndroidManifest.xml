@@ -49,10 +49,6 @@
         </activity>
 
         <activity
-            android:name="com.filebrowser.FileExplorerActivity">
-        </activity>
-
-        <activity
             android:name="com.filebrowser.FileChooser">
         </activity>
 

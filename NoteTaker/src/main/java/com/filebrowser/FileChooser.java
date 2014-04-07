@@ -93,8 +93,13 @@ public class FileChooser extends ListActivity {
         Intent intent = new Intent(this, AndroidBuildingMusicPlayerActivity.class);
         intent.putExtra("GetPath",currentDir.toString());
         intent.putExtra("GetFileName",o.getName());
-        setResult(RESULT_OK, intent);
+        System.out.print(intent.getExtras().get("GetFileName"));
+        //setResult(RESULT_OK, intent);
         startActivity(intent);
         //finish();
     }
+
+    //public Item getItemFromList() {
+    //    return item;
+    //}
 }
