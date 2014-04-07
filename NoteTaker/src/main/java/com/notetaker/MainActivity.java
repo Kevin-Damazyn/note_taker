@@ -2,18 +2,11 @@ package com.notetaker;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.mediaPlayer.AndroidBuildingMusicPlayerActivity;
-import com.recording.RecordActivity;
+import com.filebrowser.FileChooser;
 import com.recording.STTActivity;
 
 
@@ -36,7 +29,7 @@ public class MainActivity extends Activity {
     }
 
     public void browseRecordings(View view) {
-        Intent i = new Intent(this, AndroidBuildingMusicPlayerActivity.class);
+        Intent i = new Intent(this, FileChooser.class);
         startActivity(i);
     }
 
