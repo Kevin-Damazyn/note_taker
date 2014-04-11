@@ -53,16 +53,16 @@
         </activity>
 
         <activity
-            android:name="com.recording.STTActivity"
+            android:name="com.recording.RecordActivity"
             android:label="NoteTaker"
             android:screenOrientation="sensorPortrait" >
 
         </activity>
 
-        <service
-            android:name="com.recording.STTService" >
+        <!--<service-->
+            <!--android:name="com.recording.STTService" >-->
 
-        </service>
+        <!--</service>-->
 
     </application>
 

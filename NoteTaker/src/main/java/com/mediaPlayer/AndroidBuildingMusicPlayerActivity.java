@@ -345,6 +345,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
     private Runnable mUpdateTimeTask = new Runnable() {
         @Override
         public void run() {
+            try {
             long totalDuration = mp.getDuration();
             long currentDuration = mp.getCurrentPosition();
 
@@ -359,6 +360,9 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
 
             //running this thread after 100 milliseconds
             mHandler.postDelayed(this, 100);
+            } catch (IllegalStateException e) {
+
+            }
         }
     };
 

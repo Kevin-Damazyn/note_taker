@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.notetaker.MainActivity;
 
 import com.notetaker.CustomPreferences;
 import com.notetaker.R;
@@ -32,7 +33,7 @@ public class RecordActivity extends Activity {
     private boolean recording = false;
     private MediaRecorder mr;
     private MediaPlayer mp;
-    private File direct;
+//    static private File direct;
 
     private static String stringParser(String input) {
         String output = "";
@@ -81,8 +82,8 @@ public class RecordActivity extends Activity {
         mp = new MediaPlayer();
         mr = new MediaRecorder();
 
-        direct = new File(getDir(Environment.DIRECTORY_ALARMS, Context.MODE_PRIVATE).getAbsolutePath() + File.separator + "recordings");
-        direct.mkdir();
+//        direct = new File(getDir(Environment.DIRECTORY_ALARMS, Context.MODE_PRIVATE).getAbsolutePath() + File.separator + "recordings");
+//        direct.mkdir();
     }
 
     public void startRecord(View view) {
@@ -98,7 +99,7 @@ public class RecordActivity extends Activity {
             mr.stop();
             mr.reset();
             try {
-                mp.setDataSource(direct.getAbsolutePath() + "/test.3gp");
+                mp.setDataSource(MainActivity.getDirect().getAbsolutePath() + "/test.3gp");
                 mp.prepare();
                 mp.start();
             } catch (IOException e) {
@@ -116,7 +117,7 @@ public class RecordActivity extends Activity {
 
         mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-        mr.setOutputFile(direct.getAbsolutePath()+ "/test.3gp");
+        mr.setOutputFile(MainActivity.getDirect().getAbsolutePath() + "/test.3gp");
 
         try {
             mr.prepare();
@@ -136,8 +137,12 @@ public class RecordActivity extends Activity {
     }
 
     public void onDestroy() {
-        for (File f : direct.listFiles())
+        for (File f : MainActivity.getDirect().listFiles())
             Log.d("record",f.getName());
         super.onDestroy();
     }
+
+//    public static String getDirect(){
+//        return direct.getAbsolutePath();
+//    }
 }
