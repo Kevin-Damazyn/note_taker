@@ -54,21 +54,19 @@ public class SphinxTranscriptionService extends IntentService {
         // Set Up configuration to match expected audio. The model loaded for the audio must
         // match the sample rate of the configuration (i.e. 8k sample rate to 8k model)
         Config config = Decoder.defaultConfig();
-        config.setString("-hmm",appDir + "models/hmm/en-us");   // Full generic English model
-        config.setString("-dict", appDir + "models/lm/cmu07a.dic");
-        config.setString("-lm", appDir + "models/grammar/digits.gram");
+        config.setString("-hmm",appDir + "/models/hmm/en_us");   // Full generic English model
+        //config.setString("-dict", appDir + "/models/lm/cmu07a.dic");
+        //config.setString("-lm", appDir + "/models/lm/cmusphinx-5.0-en-us.lm.dmp");
         config.setFloat("-samprate", 8000);
-        config.setInt("-maxhmmpf", 2000);
-        config.setInt("-maxwpf", 10);
-        config.setInt("-pl_window", 2);
         config.setBoolean("-backtrace", true);
         config.setBoolean("-bestpath", false);
 
+        Log.w("myApp", config.getString("-hmm"));
         //Add configuration to a new Decoder
         Decoder decoder = new Decoder(config);
 
         // Open WAV File
-        File file = new File(appDir, "models/test/road01.wav");
+        File file = new File(appDir, "/models/test/road01.wav");
 
         //Generate Filestream
         FileInputStream in = null;
