@@ -1,0 +1,10 @@
+-nfilt 20
+-lowerf 130
+-upperf 3500
+-feat 1s_c_d_dd
+-agc none
+-cmn current
+-varnorm no
+-transform dct
+-lifter 22
+-cmninit 40

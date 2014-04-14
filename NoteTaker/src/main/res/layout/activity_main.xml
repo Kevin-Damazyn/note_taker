@@ -69,4 +69,16 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Process Audio"
+        android:id="@+id/process_audio"
+        android:layout_below="@+id/browse_rec"
+        android:layout_alignRight="@+id/new_rec"
+        android:layout_alignEnd="@+id/new_rec"
+        android:layout_marginTop="80dp"
+        android:onClick="processRecording" />
+
 </RelativeLayout>
