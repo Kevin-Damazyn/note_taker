@@ -2,10 +2,13 @@ package com.mediaPlayer;
 
 import android.os.Environment;
 
+import com.recording.RecordActivity;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.notetaker.MainActivity;
 
 /**
  * Kevin Damazyn
@@ -23,13 +26,13 @@ public class SongsManager {
     }
 
     public ArrayList<HashMap<String, String>> getPlayList(){
-        File home = new File("storage/extSdCard/Music/The 1975/The 1975");
+        File home = new File(MainActivity.getDirect().getAbsolutePath());
 
 
         FilenameFilter extensionFilter = new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
-                return (name.endsWith(".mp3") || name.endsWith(".MP3"));
+                return (name.endsWith(".3gp") || name.endsWith(".3GP"));
             }
         };
 
