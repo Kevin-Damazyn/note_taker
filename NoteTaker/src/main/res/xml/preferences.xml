@@ -2,20 +2,64 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
+    <EditTextPreference>    <!-- Settings that are changed by user input. Value is saved as a string -->
+        <!-- User Name -->
         android:title="Enter Name"
         android:key="username"
         android:summary="Choose a name for your files to be tagged with"
-        android:dialogTitle="Enter Name"></EditTextPreference>
+        android:dialogTitle="Enter Name"
+
+        </EditTextPreference>
 
 
+    <ListPreference>        <!-- Recording Format (file type)-->    <!-- Settings that are determined by what is selected out of a list of options -->
 
-    <ListPreference
-        android:title="Choose Recording Format"
+        android:title="Choose Preferred Recording Format"
         android:key="record_format"
         android:summary="Choose the format you want the audio recordings to be saved in"
         android:entries="@array/format_types"
         android:entryValues="@array/format_types_values"
-        android:dialogTitle="Choose Recording Format"></ListPreference>
+        android:dialogTitle="Choose Recording Format"
+           </ListPreference>
 
-</PreferenceScreen>
+    <ListPreference>        <!-- Language Choice, don't know if all of these are needed for every setting. -->
+
+        android:title="Choose Preferred Translation Language"
+        android:key="lang_choice"
+        android:summary="Choose language that is being interpreted"
+        android:entries="@array/lang_choices"
+        android:entryValues="@array/lang_choices_values"
+        android:dialogTitle="Choose Language"
+        </ListPreference>
+
+
+    <CheckBoxPreference> <!-- Color Scheme -->
+
+        android:title="Dark Theme"  <!-- Or whatever the NOT default theme is -->
+        android:key="AltTheme"
+        android:summary="If checked, theme will appear darker"
+
+        </CheckBoxPreference>
+
+
+    <EditTextPreference>
+
+        android:title="File Tag"
+        android:key="fileTag"
+        android:summary="User can append a tag of their choice to a file"
+        <!-- Not finished -->
+
+        </EditTextPreference>
+
+    <ListPreference>
+        <!-- This should probably include "set time to keep audio -->
+        android:title="Audio File Lifespan"
+        android:key="FileLifeSpan"
+        android:summary="Determine how long an audio file will be saved. Deletes file after this time has passed"
+        android:dialogTitle="Choose Lifespan"
+
+
+        </ListPreference>
+
+
+    </PreferenceScreen>
