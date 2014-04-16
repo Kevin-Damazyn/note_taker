@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
+    <!--format type arrays-->
     <string-array name="format_types">
         <item name="0">AAC_ADTS</item>
         <item name="1">MPEG_4</item>
         <item name="2">THREE_GPP</item>
     </string-array>
-
     <string-array name="format_types_values">
         <item name="0">0</item>
         <item name="1">1</item>
         <item name="2">2</item>
     </string-array>
-    
+
+
+    <!--language choice arrays-->
+    <string-array name="language_choices">
+        <item name="english">English</item>
+        <item name="spanish">Spanish</item>
+        <item name="pig_latin">Pig Latin</item>
+    </string-array>
+    <string-array name="language_choices_values">
+        <item name="english">01</item>
+        <item name="spanish">02</item>
+        <item name="pig_latin">03</item>
+    </string-array>
+
+
+    <!--lifespan arrays-->
+    <string-array name="lifespan">
+        <item name="forever">Forever</item>
+        <item name="never">Do not save files</item>
+    </string-array>
+    <string-array name="lifespan_values">
+        <item name="forever">99</item>
+        <item name="never">01</item>
+    </string-array>
+
+
 </resources>
