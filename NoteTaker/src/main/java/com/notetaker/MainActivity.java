@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -36,6 +37,8 @@ public class MainActivity extends Activity {
 
         direct = new File(getDir(Environment.DIRECTORY_ALARMS, Context.MODE_PRIVATE).getAbsolutePath() + File.separator + "recordings");
         direct.mkdir();
+
+
 
         updatePrefs();
     }
@@ -94,6 +97,12 @@ public class MainActivity extends Activity {
 
         if (mySharedPrefs.getString("username","None") != "None")
             username.setText("Welcome back " + mySharedPrefs.getString("username","None"));
+
+        if (mySharedPrefs.getBoolean("AltTheme", true)){
+            setContentView(R.layout.activity_main_dark);
+        } else {
+            setContentView(R.layout.activity_main);
+        }
 
     }
 

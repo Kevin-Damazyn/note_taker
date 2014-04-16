@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@android:color/background_light"
+    android:background="@android:color/background_dark"
     android:rowCount="7"
     android:columnCount="11">
 
