@@ -3,8 +3,7 @@ package com.notetaker;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -18,8 +17,12 @@ import android.widget.TextView;
 import com.filebrowser.FileChooser;
 import com.recording.RecordActivity;
 import com.recording.STTActivity;
+import com.transcription.SphinxTranscriptionService;
 
-import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 
 public class MainActivity extends Activity {
@@ -33,14 +36,6 @@ public class MainActivity extends Activity {
         super.onCreate(SavedInstanceState);
         setContentView(R.layout.activity_main);
 
-        username = (TextView) findViewById(R.id.title_name);
-
-        direct = new File(getDir(Environment.DIRECTORY_ALARMS, Context.MODE_PRIVATE).getAbsolutePath() + File.separator + "recordings");
-        direct.mkdir();
-
-
-
-        updatePrefs();
     }
 
     public void onStart() {
@@ -116,8 +111,10 @@ public class MainActivity extends Activity {
         startActivity(i);
     }
 
-    public static File getDirect(){
-        return direct;
+    public void processRecording(View view) {
+        Intent i = new Intent(this, SphinxTranscriptionService.class);
+        startService(i);
     }
+
 
 }
