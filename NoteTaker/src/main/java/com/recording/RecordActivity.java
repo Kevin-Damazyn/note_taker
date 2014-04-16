@@ -133,6 +133,7 @@ public class RecordActivity extends Activity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         filename = "/" + name + "_" + prefs.getString("username", "None") + ".3gp";
+//        filename = "/" + name + "_" + prefs.getString("username", "filetag") + ".3gp";
         recordedText.setText(filename);
     }
 

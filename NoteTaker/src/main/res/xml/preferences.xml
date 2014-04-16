@@ -1,21 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Edited by Zach on 4-15-14 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <!-- User Name -->
     <EditTextPreference
         android:title="Enter Name"
         android:key="username"
         android:summary="Choose a name for your files to be tagged with"
-        android:dialogTitle="Enter Name"></EditTextPreference>
+        android:dialogTitle="Enter Name"
+        />
 
-
-
+    <!-- Format that audio file will be saved in -->
     <ListPreference
-        android:title="Choose Recording Format"
         android:key="record_format"
         android:summary="Choose the format you want the audio recordings to be saved in"
         android:entries="@array/format_types"
-        android:entryValues="@array/format_types_values"
-        android:dialogTitle="Choose Recording Format"></ListPreference>
+        android:entryValues="@array/format_types"
+        android:dialogTitle="Choose Recording Format"
+        android:title="@string/record_format_title"
+        />
 
-</PreferenceScreen>
+
+    <!-- Language Choice, don't know if all of these are needed for every setting. -->
+    <ListPreference
+        android:title="Choose Translation Language"
+        android:key="lang_choice"
+        android:summary="Choose language that is being interpreted"
+        android:entries="@array/language_choices"
+        android:entryValues="@array/language_choices_values"
+        android:dialogTitle="Choose Language"
+        />
+
+
+    <!-- Color Scheme -->
+    <CheckBoxPreference
+        android:title="Dark Theme"
+        android:key="AltTheme"
+        android:summary="If checked, theme will appear darker"
+        />
+
+    <!-- Will append a tag to the end of saved file names (currently not implemented fully) -->
+    <EditTextPreference
+        android:title="File Tag"
+        android:key="fileTag"
+        android:summary="User can append a tag of their choice to a file"
+        />
+
+    <!-- This should probably include "set time to keep audio" -->
+    <ListPreference
+        android:title="Audio File Lifespan"
+        android:key="FileLifeSpan"
+        android:summary="Determine how long an audio file will be saved. Deletes file after this time has passed"
+        android:dialogTitle="Choose Lifespan"
+        android:entries="@array/lifespan"
+        android:entryValues="@array/lifespan_values"
+        />
+
+
+
+
+
+    </PreferenceScreen>
