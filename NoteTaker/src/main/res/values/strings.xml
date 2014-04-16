@@ -11,5 +11,11 @@
     <string name="record_btn_txt">Start Recording</string>
     <string name="txt_output">Strings go here!</string>
     <string name="hello">Hello World, AndroidBuildingMusicPlayerActivity!</string>
+
+
+    <!-- Recording format strings -->
     <string name="music_player_name">AndroidBuildingMusicPlayer</string>
+    <string name="record_format_title">Recording Format</string>
+
+
 </resources>
