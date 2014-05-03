@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
         super.onCreate(SavedInstanceState);
         setContentView(R.layout.activity_main);
 
-        direct = new File(Environment.getExternalStorageState() + File.separator + "recordings");
+        direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "recordings");
         direct.mkdir();
 
     }

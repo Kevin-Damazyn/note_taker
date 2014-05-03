@@ -1,6 +1,7 @@
 package com.filebrowser;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,9 +10,11 @@ import java.text.DateFormat;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ListView;
 
+import com.notetaker.MainActivity;
 import com.notetaker.R;
 import com.mediaPlayer.AndroidBuildingMusicPlayerActivity;
 
@@ -25,12 +28,12 @@ public class FileChooser extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentDir = getFilesDir();
+        currentDir = MainActivity.getDirect();
         fill(currentDir);
     }
     private void fill(File f)
     {
-        File[]dirs = f.listFiles();
+        File[]dirs = f.listFiles(extensionFilter);
         this.setTitle("NoteTaker: Current Dir: "+f.getName());
         List<Item>dir = new ArrayList<Item>();
         List<Item>fls = new ArrayList<Item>();
@@ -87,6 +90,14 @@ public class FileChooser extends ListActivity {
             onFileClick(o);
         }
     }
+
+    FilenameFilter extensionFilter = new FilenameFilter() {
+        @Override
+        public boolean accept(File file, String name) {
+            return (name.endsWith(".wav") || name.endsWith(".WAV"));
+        }
+    };
+
     private void onFileClick(Item o)
     {
         //Toast.makeText(this, "Folder Clicked: "+ currentDir, Toast.LENGTH_SHORT).show();

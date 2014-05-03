@@ -32,7 +32,7 @@ public class SongsManager {
         FilenameFilter extensionFilter = new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
-                return (name.endsWith(".3gp") || name.endsWith(".3GP"));
+                return (name.endsWith(".wav") || name.endsWith(".WAV"));
             }
         };
 

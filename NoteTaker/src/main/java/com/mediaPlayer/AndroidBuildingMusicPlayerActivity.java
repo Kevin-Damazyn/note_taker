@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.notetaker.MainActivity;
 import com.notetaker.R;
 
 import java.io.BufferedReader;
@@ -89,7 +90,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
             }
         };
 
-       File[] files = getFilesDir().listFiles(extensionFilter);
+       File[] files = MainActivity.getDirect().listFiles(extensionFilter);
 
         Intent intent = getIntent();
 

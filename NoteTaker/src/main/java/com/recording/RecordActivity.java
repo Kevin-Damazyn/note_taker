@@ -6,7 +6,6 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +28,7 @@ public class RecordActivity extends Activity {
 
     private static final int RECORDER_BPP = 16;
     private static final String AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
-    private static final String AUDIO_RECORDER_FOLDER = MainActivity.getDirect().getAbsolutePath();
+    private static final String AUDIO_RECORDER_FOLDER = MainActivity.getDirect().getPath();
     private static final String AUDIO_RECORDER_TEMP_FILE = "record_temp.raw";
     private static final int RECORDER_SAMPLERATE = 16000;
     private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
@@ -54,14 +53,13 @@ public class RecordActivity extends Activity {
     }
 
     private String getTempFilename() {
-        String filepath = Environment.getExternalStorageDirectory().getPath();
-        File file = new File(filepath,AUDIO_RECORDER_FOLDER);
+        File file = new File(AUDIO_RECORDER_FOLDER);
 
         if(!file.exists()) {
             file.mkdirs();
         }
 
-        File tempFile = new File(filepath,AUDIO_RECORDER_TEMP_FILE);
+        File tempFile = new File(AUDIO_RECORDER_FOLDER,AUDIO_RECORDER_TEMP_FILE);
         if(tempFile.exists()) {
             tempFile.delete();
         }
@@ -70,8 +68,7 @@ public class RecordActivity extends Activity {
     }
 
     private String getFilename(){
-        String filepath = Environment.getExternalStorageDirectory().getPath();
-        File file = new File(filepath,AUDIO_RECORDER_FOLDER);
+        File file = new File(AUDIO_RECORDER_FOLDER);
 
         if(!file.exists()){
             file.mkdirs();
