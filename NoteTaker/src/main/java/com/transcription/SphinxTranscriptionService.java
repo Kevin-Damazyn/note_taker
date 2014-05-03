@@ -54,10 +54,9 @@ public class SphinxTranscriptionService extends IntentService {
         // Set Up configuration to match expected audio. The model loaded for the audio must
         // match the sample rate of the configuration (i.e. 8k sample rate to 8k model)
         Config config = Decoder.defaultConfig();
-        config.setString("-hmm",appDir + "/models/hmm/en_us");   // Full generic English model
-        //config.setString("-dict", appDir + "/models/lm/cmu07a.dic");
-        //config.setString("-lm", appDir + "/models/lm/cmusphinx-5.0-en-us.lm.dmp");
-        config.setFloat("-samprate", 8000);
+        config.setString("-hmm",appDir + "/models/hmm");   //  generic English model
+        config.setString("-lm", appDir + "/models/lm/cmusphinx-5.0-en-us.lm.dmp");
+        config.setFloat("-samprate", 16000);
         config.setBoolean("-backtrace", true);
         config.setBoolean("-bestpath", false);
 
@@ -66,7 +65,9 @@ public class SphinxTranscriptionService extends IntentService {
         Decoder decoder = new Decoder(config);
 
         // Open WAV File
-        File file = new File(appDir, "/models/test/road01.wav");
+        File file = new File(intent.getStringExtra("getFileLocation"));
+
+        //File file = new File(appDir, "/models/test/road01.wav");
 
         //Generate Filestream
         FileInputStream in = null;
@@ -108,6 +109,8 @@ public class SphinxTranscriptionService extends IntentService {
         Hypothesis hypothesis = decoder.hyp();
         String text = hypothesis.getHypstr();
         int score = hypothesis.getBestScore();
+
+        // Send transcription to the file system
     }
 
     /**
