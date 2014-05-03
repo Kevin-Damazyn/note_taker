@@ -42,7 +42,6 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
     private ImageButton btnBackward;
     private ImageButton btnNext;
     private ImageButton btnPrevious;
-    private ImageButton btnPlaylist;
     private ImageButton btnRepeat;
     private ImageButton btnShuffle;
     private SeekBar songProgressBar;
@@ -54,14 +53,14 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
     private MediaPlayer mp;
     //handler to update UI timer, progress bar etc
     private Handler mHandler = new Handler();
-    private SongsManager songManager;
     private Utilities utils;
     private int seekForwardTime = 5000; //in milliseconds
     private int seekBackwardTime = 5000; //in milliseconds
-    private int currentSongIndex = 0;
     private boolean isShuffle = false;
     private boolean isRepeat = false;
-    private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+    private String song;
+    private String songTitle;
+//    private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +73,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
         btnBackward = (ImageButton) findViewById(R.id.btnBackward);
         btnNext = (ImageButton) findViewById(R.id.btnNext);
         btnPrevious = (ImageButton) findViewById(R.id.btnPrevious);
-        btnPlaylist = (ImageButton) findViewById(R.id.btnPlaylist);
+        ImageButton btnPlaylist = (ImageButton) findViewById(R.id.btnPlaylist);
         btnRepeat = (ImageButton) findViewById(R.id.btnRepeat);
         btnShuffle = (ImageButton) findViewById(R.id.btnShuffle);
         songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
@@ -126,25 +125,16 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
             }
         }
 
+        song = intent.getStringExtra("GetFilePath");
+        songTitle = intent.getStringExtra("GetFileName");
 
         //mediaplayer
         mp = new MediaPlayer();
-        songManager = new SongsManager();
         utils = new Utilities();
 
         //Listeners
         songProgressBar.setOnSeekBarChangeListener(this); //Important
         mp.setOnCompletionListener(this); // Important
-
-        //Getting all the songs
-        songsList = songManager.getPlayList();
-
-        for (int i= 0; i> songsList.size(); i++) {
-        System.out.println(songsList.get(i));
-        }
-
-        //By default play the first song
-      //  playSong(0);
 
         //play button click event
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -211,14 +201,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
             @Override
             public void onClick(View arg0) {
                 // check if next song is there or not
-                if(currentSongIndex < (songsList.size() - 1)){
-                    playSong(currentSongIndex + 1);
-                    currentSongIndex = currentSongIndex + 1;
-                }else{
-                    // play first song
-                    playSong(0);
-                    currentSongIndex = 0;
-                }
+                playSong(song);//get songPath from filechooser);
 
             }
         });
@@ -228,14 +211,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
 
             @Override
             public void onClick(View arg0) {
-                if(currentSongIndex > 0){
-                    playSong(currentSongIndex - 1);
-                    currentSongIndex = currentSongIndex - 1;
-                }else{
-                    // play last song
-                    playSong(songsList.size() - 1);
-                    currentSongIndex = songsList.size() - 1;
-                }
+                playSong(song); //get songPath from filechooser
 
             }
         });
@@ -282,40 +258,17 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
             }
         });
 
-        //Play list button, Launches list activity which displays list of songs
-        btnPlaylist.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                Intent i = new Intent(getApplicationContext(), PlayListActivity.class);
-                startActivityForResult(i, 100);
-            }
-        });
-    }
-
-    //Receiving song index from playlist view and play the song
-    @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 100){
-            currentSongIndex = data.getExtras().getInt("songIndex");
-            // play selected song
-            playSong(currentSongIndex);
-        }
-
     }
 
     //Play the song method
-    public void playSong(int songIndex){
+    public void playSong(String songPath){
         //Play song
         try {
             mp.reset();
-            mp.setDataSource(songsList.get(songIndex).get("songPath"));
+            mp.setDataSource(songPath);
             mp.prepare();
             mp.start();
             //Display song title
-            String songTitle = songsList.get(songIndex).get("songTitle");
             songTitleLabel.setText(songTitle);
 
             //Changing Play button to Pause
@@ -396,26 +349,8 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
     //On song playing completed check for repeat/shuffle
     @Override
     public void onCompletion(MediaPlayer arg0) {
-        //check for repeat is on or off
-        if(isRepeat) {
-            //repeat is on so play same song
-            playSong(currentSongIndex);
-        } else if(isShuffle) {
-            //shuffle is on - play random song
-            Random rand = new Random();
-            currentSongIndex = rand.nextInt((songsList.size() - 1) + 1);
-            playSong(currentSongIndex);
-        } else {
-            //no repeat or shuffle on - play next song
-            if(currentSongIndex < (songsList.size() - 1)) {
-                playSong(currentSongIndex + 1);
-                currentSongIndex = currentSongIndex + 1;
-            } else {
                 //play first song
-                playSong(0);
-                currentSongIndex = 0;
-            }
-        }
+                playSong(song);
     }
 
     @Override

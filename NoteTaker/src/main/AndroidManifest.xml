@@ -36,12 +36,6 @@
         </activity>
 
         <activity
-            android:name="com.mediaPlayer.PlayListActivity"
-            android:screenOrientation="sensorPortrait" >
-            <!-- -->
-        </activity>
-
-        <activity
             android:name="com.mediaPlayer.AndroidBuildingMusicPlayerActivity"
             android:label="NoteTaker"
             android:configChanges="keyboardHidden|orientation"

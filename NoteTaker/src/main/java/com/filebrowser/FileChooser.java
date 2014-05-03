@@ -25,6 +25,7 @@ public class FileChooser extends ListActivity {
 
     private File currentDir;
     private FileArrayAdapter adapter;
+    private File recording;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +105,7 @@ public class FileChooser extends ListActivity {
         Intent intent = new Intent(this, AndroidBuildingMusicPlayerActivity.class);
         intent.putExtra("GetPath",currentDir.toString());
         intent.putExtra("GetFileName",o.getName());
+        intent.putExtra("GetFilePath",o.getPath());
         System.out.print(intent.getExtras().get("GetFileName"));
         //setResult(RESULT_OK, intent);
         startActivity(intent);
