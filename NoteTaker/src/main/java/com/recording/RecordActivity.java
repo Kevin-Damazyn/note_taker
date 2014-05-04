@@ -1,6 +1,7 @@
 package com.recording;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -12,6 +13,7 @@ import android.widget.Button;
 
 import com.notetaker.MainActivity;
 import com.notetaker.R;
+import com.transcription.SphinxTranscriptionService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -133,6 +135,7 @@ public class RecordActivity extends Activity {
                 e.printStackTrace();
             }
         }
+
     }
 
     private void convertToWav(File rawFile) throws IOException {
@@ -160,6 +163,10 @@ public class RecordActivity extends Activity {
 
             recorder = null;
             recordingThread = null;
+
+            Intent i = new Intent(this, SphinxTranscriptionService.class);
+            i.putExtra("getFileLocation", MainActivity.getDirect() + File.separator +  getFinalFilename() + ".wav");
+            startService(i);
         }
 
     }

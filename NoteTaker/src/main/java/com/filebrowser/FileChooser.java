@@ -62,7 +62,7 @@ public class FileChooser extends ListActivity {
                 }
                 else
                 {
-                    fls.add(new Item(ff.getName(),ff.length() + " Byte", date_modify, ff.getAbsolutePath(),"file_icon"));
+                    fls.add(new Item(ff.getName().replaceAll(".wav", ""),ff.length() + " Byte", date_modify, ff.getAbsolutePath(),"file_icon"));
                 }
             }
         }catch(Exception e)

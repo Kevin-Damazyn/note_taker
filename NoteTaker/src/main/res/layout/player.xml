@@ -51,7 +51,6 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Dylan's file of text goes here."
             android:id="@+id/text_from_recording"
             android:background="@android:color/white"
             android:editable="true"
