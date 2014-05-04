@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,8 +35,8 @@ import static android.media.MediaPlayer.*;
  * taken from androidhive.com
  * molded for note taker
  */
-public class AndroidBuildingMusicPlayerActivity extends Activity
-        implements OnCompletionListener, SeekBar.OnSeekBarChangeListener {
+public class AndroidBuildingMusicPlayerActivity  extends Activity
+        implements OnCompletionListener, SeekBar.OnSeekBarChangeListener  {
 
     private ImageButton btnPlay;
     private ImageButton btnForward;
@@ -89,41 +90,14 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
             }
         };
 
-       File[] files = MainActivity.getDirect().listFiles(extensionFilter);
+        // Retrieve the transcription and place on the view
+        try {
+            populateTranscription();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Intent intent = getIntent();
-
-        if (files != null) {
-            Log.d("stt", "found some files");
-            try
-            {
-                String name = intent.getStringExtra("GetFileName").replaceAll(".wav", ".txt");
-                InputStream instream = openFileInput(name);
-                if (instream != null)
-                {
-                    InputStreamReader inputreader = new InputStreamReader(instream);
-                    BufferedReader buffreader = new BufferedReader(inputreader);
-                    String line, line1 = "";
-
-                    try
-                    {
-                        while ((line = buffreader.readLine()) != null)
-                            line1+=line;
-                        Log.d("stt", "line is as follows: ");
-                        Log.d("stt", line1);
-                        textFromFile.setText(line1);
-                    } catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                String error="";
-                error=e.getMessage();
-            }
-        }
 
         song = intent.getStringExtra("GetFilePath");
         songTitle = intent.getStringExtra("GetFileName");
@@ -357,6 +331,55 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
     public void onDestroy() {
         super.onDestroy();
         mp.release();
+    }
+
+    private void populateTranscription() throws IOException{
+
+        // Define filter for pulling back files
+        FilenameFilter extensionFilter = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return (name.endsWith(".wav") || name.endsWith(".WAV"));
+            }
+        };
+
+        // Pull back the file list
+        File[] files = MainActivity.getDirect().listFiles(extensionFilter);
+
+        Intent intent = getIntent();
+
+        // If Files Exist.....
+        if (files != null) {
+            Log.d("stt", "found some files");
+
+            // Get file that we are opening and change extension to .txt
+            String name = intent.getStringExtra("GetFilePath").replaceAll(".wav", ".txt");
+            Log.w("File:", name);
+
+            //Open File
+            File file = new File(name);
+            if (file != null){
+
+                // Create A string builder to hold the data and a BufferedReader
+                StringBuilder text = new StringBuilder();
+                BufferedReader buffreader = new BufferedReader(new FileReader(file));
+                String line = "";
+
+                // Loop through available data
+                while ((line = buffreader.readLine()) != null) {
+                    // Add data to string builder
+                    text.append(line);
+                    text.append('\n');
+
+                    // Log data being added to the string builder
+                    Log.d("stt", "line is as follows: ");
+                    Log.d("stt", line);
+                }
+
+                // Set the retrieved text to the view
+                textFromFile.setText(text);
+            }
+        }
     }
 }
 
