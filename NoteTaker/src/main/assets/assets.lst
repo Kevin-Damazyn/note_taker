@@ -9,4 +9,5 @@ models/hmm/sendump
 models/hmm/transition_matrices
 models/hmm/variances
 models/lm/cmusphinx-5.0-en-us.lm.dmp
+models/lm/cmu07a.dic
 models/test/road01.wav
