@@ -85,7 +85,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
         FilenameFilter extensionFilter = new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
-                return (name.endsWith(".txt") || name.endsWith(".TXT"));
+                return (name.endsWith(".wav") || name.endsWith(".WAV"));
             }
         };
 
@@ -97,7 +97,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity
             Log.d("stt", "found some files");
             try
             {
-                String name = intent.getStringExtra("GetFileName");
+                String name = intent.getStringExtra("GetFileName").replaceAll(".wav", ".txt");
                 InputStream instream = openFileInput(name);
                 if (instream != null)
                 {

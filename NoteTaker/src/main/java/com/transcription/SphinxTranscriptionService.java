@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.util.Log;
 
+import com.notetaker.MainActivity;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,6 +59,7 @@ public class SphinxTranscriptionService extends IntentService {
         Config config = Decoder.defaultConfig();
         config.setString("-hmm",appDir + "/models/hmm");   //  generic English model
         config.setString("-lm", appDir + "/models/lm/cmusphinx-5.0-en-us.lm.dmp");
+        config.setString("-dict", appDir + "/models/lm/cmu07a.dic");
         config.setFloat("-samprate", 16000);
         config.setBoolean("-backtrace", true);
         config.setBoolean("-bestpath", false);
@@ -65,6 +69,7 @@ public class SphinxTranscriptionService extends IntentService {
         Decoder decoder = new Decoder(config);
 
         // Open WAV File
+        //File file = new File(MainActivity.getDirect().getAbsolutePath() + File.separator + "test1_None.wav");
         File file = new File(intent.getStringExtra("getFileLocation"));
 
         //File file = new File(appDir, "/models/test/road01.wav");
@@ -85,32 +90,63 @@ public class SphinxTranscriptionService extends IntentService {
             e.printStackTrace();
         }
 
-        byte[] buf = new byte[8000];
+
+
+        byte[] buf = new byte[16000];
+        int nread;
+        decoder.startUtt("");
         assert in != null;
-        int readSize = 0;
         try {
-            readSize = in.read(buf);
+            while ((nread = in.read(buf)) > 0) {
+                short[] shortArr = new short[nread/2];
+                for (int i = 0; i < nread/2 ; i++)  {
+                    shortArr[i] = ( (short)( ( buf[i*2] & 0xff )|( buf[i*2 + 1] << 8 ) ) );
+                }
+                decoder.processRaw(shortArr, nread/2, false, false);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        short[] shortArr = new short[readSize/2];
-        for (int i = 0; i < readSize/2 ; i++) {
-            shortArr[i] = ( (short)( ( buf[i*2] & 0xff )|( buf[i*2 + 1] << 8 ) ) );
-        }
+        decoder.endUtt();
+
         try {
             in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        decoder.startUtt(null);
-        decoder.processRaw(shortArr, shortArr.length, false, false);
-        decoder.endUtt();
-        Hypothesis hypothesis = decoder.hyp();
-        String text = hypothesis.getHypstr();
-        int score = hypothesis.getBestScore();
 
-        // Send transcription to the file system
+        Hypothesis hypothesis = decoder.hyp();
+
+        String text = "";
+        if(hypothesis != null) {
+            text = hypothesis.getHypstr();
+            int score = hypothesis.getBestScore();
+        }
+        else{
+            Log.i("TAG", text);
+        }
+        Log.i("TAG", text);
+
+        // Send transcription to the external file system
+        String filePath = intent.getStringExtra("getFileLocation");
+        String filePathArray[] = filePath.split(".wav");
+        String finalFilePath = filePathArray[0] + ".txt";
+
+        File textFile = new File(finalFilePath);
+
+        try {
+            FileOutputStream os = new FileOutputStream(textFile);
+            OutputStreamWriter out = new OutputStreamWriter(os);
+
+            out.write(text);
+            out.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+
+
     }
 
     /**
