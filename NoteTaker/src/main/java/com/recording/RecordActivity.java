@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.notetaker.MainActivity;
 import com.notetaker.R;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Handler;
 
 import simplesound.pcm.PcmAudioHelper;
 import simplesound.pcm.WavAudioFormat;
@@ -42,6 +44,7 @@ public class RecordActivity extends Activity {
     private boolean recording = false;
     private Button recordButton;
     String finalFilename;
+    private android.os.Handler textHandler;
 
     public void onCreate(Bundle SavedInstanceData) {
         super.onCreate(SavedInstanceData);
@@ -50,6 +53,8 @@ public class RecordActivity extends Activity {
         recordButton = (Button) findViewById(R.id.record_button);
         recordButton.setText("Start recording");
         recordButton.setOnClickListener(recordBtnClick);
+
+        textHandler = new android.os.Handler();
 
         bufferSize = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING);
     }
@@ -164,13 +169,15 @@ public class RecordActivity extends Activity {
             recorder = null;
             recordingThread = null;
 
+
+            //Starting Transcription
+            Toast.makeText(getApplicationContext(),"Starting Transcription!", Toast.LENGTH_LONG).show();
             Intent i = new Intent(this, SphinxTranscriptionService.class);
             i.putExtra("getFileLocation", MainActivity.getDirect() + File.separator +  getFinalFilename() + ".wav");
             startService(i);
         }
 
     }
-
 
     public void setFilename(String name) {
 
